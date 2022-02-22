@@ -1,0 +1,53 @@
+__pycache__
+.DS_Store
+
+# Git
+.git
+.gitignore
+.gitmodules
+
+# CI
+.github
+
+# Docker
+.docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Distribution / packaging
+build/
+dist/
+eggs/
+lib/
+lib64/
+*.egg-info/
+*.egg
+
+# Config files
+config
+.env
+.env.*
+*.env
+
+# Docs
+*.md
+docs/
+reports/
+
+# Logs
+logs
+*.log
+
+# Static files and audio files
+static
+output
+upload
+
+# Model
+models
+
+# Others
+Makefile
+tox.ini
+prometheus

@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+aiofiles = "*"
+fastapi = "*"
+python-dotenv = "*"
+python-multipart = "*"
+uvicorn = "*"
+starlette-exporter = "*"
+Jinja2 = "*"
+
+[dev-packages]
+httpx = "*"
+pytest = "*"
+pytest-asyncio = "*"
+pytest-html = "*"
+pytest-cov = "*"
+pytest-mock = "*"
+pydocstyle = "*"
+pylint = "*"
+flake8 = "*"
+
+[requires]
+python_version = "3.8"

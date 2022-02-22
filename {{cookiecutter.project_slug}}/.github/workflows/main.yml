@@ -1,0 +1,83 @@
+name: api_ci_build
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the specified branches
+  push:
+    branches: 
+      - master
+  pull_request:
+    branches: 
+      - master
+      - pre-production
+      - production
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build_and_test:
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache python packages
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-pip-packages
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+
+      # Runs a set of commands using the runners shell
+      - name: Install dependencies
+        run: |
+          sudo apt-get install libsndfile1-dev
+          python -m pip install --upgrade pip
+          pip install pipenv
+          pipenv install
+          pipenv shell
+
+      - name: Set env file
+        run: echo '${{ secrets.ENV_VARIABLES }}' > config/.env.test
+
+      - name: Linter with Flake8 
+        run: |
+          flake8 --output-file=reports/flake8_report.txt --exit-zero ./app
+
+      - name: Linter with pylint 
+        run: |
+          pylint --reports=y --score=y --exit-zero ./app > reports/pylint.txt
+
+      - name: Test with pytest
+        run: |
+          pytest ./tests
+        # Use always() to always run the test
+        if: ${{ always() }}
+
+      - name: Upload pytest test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: pytest-results-${{ matrix.python-version }}
+          path: reports/
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
