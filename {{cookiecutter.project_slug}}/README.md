@@ -23,7 +23,7 @@ Describe API features.
 
 - OS: Ubuntu 20.04 x86_64 (It might also work on 16.04 and 18.04)
 - Python >= 3.8
-- See also [requirements.txt](/requirements/requirements.txt)
+- See also [Pipfile](/Pipfile)
 
 ## Configuration
 
