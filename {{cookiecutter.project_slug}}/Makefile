@@ -15,6 +15,7 @@ docstyle:
 
 build:.
 	docker build -t {{cookiecutter.project_slug}}:$(VERSION) \
+		-t {{cookiecutter.project_slug}}:latest \
 		--build-arg USER_ID=$(USER_ID) \
 		--build-arg GID=$(GID) .
 
