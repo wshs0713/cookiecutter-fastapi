@@ -103,7 +103,7 @@ $ make deploy USER_ID=$(id -u) GID=$(id -g) VERSION=<version>
     ├─ logs/                    # Log files
     ├─ prometheus/              # Prometheus data
     ├─ scripts/                 # Shell scripts
-    ├─ tests/                   # Tests, following https://github.com/DeepWaveInc/Project_Guideline#testing
+    ├─ tests/                   # Tests
     ├─ asgi.py                  # Entry file
     ├─ docker-compose.yml
     ├─ Dockerfile
