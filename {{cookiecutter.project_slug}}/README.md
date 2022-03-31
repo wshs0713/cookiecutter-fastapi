@@ -45,7 +45,7 @@ Start server:
 
 ```bash
 $ pipenv shell
-$ uvicorn asgi:app
+$ uvicorn app.main:app
 ```
 
 ### Installation for production
@@ -76,35 +76,35 @@ $ make deploy USER_ID=$(id -u) GID=$(id -g) VERSION=<version>
 
 ```text
 {{cookiecutter.project_slug}}
-    ├─ .github                  # Github Action workflow
+    ├─ .github                      # Github Action workflow
     |   └─ workflows
     |       └─ main.yml
-    ├─ app/                     # FastAPI application
+    ├─ app/                         # FastAPI application
     |   ├─ api/
-    |   |   └─ routes/          # API routes
-    |   ├─ core/                # API configuration, error handlers
+    |   |   └─ routes/              # API routes
+    |   ├─ config/:                 # Config files, environment files
+    |   |   ├─ .env.dev             # Environment file for development
+    |   |   ├─ .env.test            # Environment file for test
+    |   |   ├─ .env.prod            # Environment file for production
+    |   |   ├─ example.env          # Environment file example
+    |   |   └─ gunicorn_config.py   # Gunicorn config file, see also https://docs.gunicorn.org/en/stable/settings.html
+    |   ├─ core/                    # API configuration, error handlers
     |   |   ├─ config.py
-    |   |   └─ error_handler.py
-    |   ├─ middlewares/         # API middlewares
-    |   |   └─ http.py          # HTTP middleware
-    |   ├─ models/              # SQLAlchemy models
-    |   ├─ schemas/             # Pydantic schemas
-    |   ├─ services/            # Business logic
-    |   └─ utils/               # Utilities
-    ├─ config/:                 # Config files, environment files
-    |   ├─ .env.dev             # Environment file for development
-    |   ├─ .env.test            # Environment file for test
-    |   ├─ .env.prod            # Environment file for production
-    |   ├─ example.env          # Environment file example
-    |   └─ gunicorn_config.py   # Gunicorn config file, see also https://docs.gunicorn.org/en/stable/settings.html
-    ├─ docs/                    # Documents
+    |   |   ├─ error_handler.py
+    |   |   └─ registers.py
+    |   ├─ middlewares/             # API middlewares
+    |   |   └─ http.py              # HTTP middleware
+    |   ├─ models/                  # SQLAlchemy models
+    |   ├─ schemas/                 # Pydantic schemas
+    |   ├─ services/                # Business logic
+    |   └─ utils/                   # Utilities
+    ├─ docs/                        # Documents
     |   ├─ CHANGELOG.md
     |   └─ configuration.md
-    ├─ logs/                    # Log files
-    ├─ prometheus/              # Prometheus data
-    ├─ scripts/                 # Shell scripts
-    ├─ tests/                   # Tests
-    ├─ asgi.py                  # Entry file
+    ├─ logs/                        # Log files
+    ├─ prometheus/                  # Prometheus data
+    ├─ scripts/                     # Shell scripts
+    ├─ tests/                       # Tests
     ├─ docker-compose.yml
     ├─ Dockerfile
     ├─ Makefile

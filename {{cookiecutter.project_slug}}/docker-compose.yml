@@ -14,7 +14,7 @@ services:
       - MODULE_NAME=asgi
       - VARIABLE_NAME=app
       - APP_MODULE=asgi:app
-      - GUNICORN_CONF=/app/config/gunicorn_config.py
+      - GUNICORN_CONF=/app/app/config/gunicorn_config.py
       - WORKERS_PER_CORE=0.5
       - MAX_WORKERS=4
       - WEB_CONCURRENCY=2
@@ -35,7 +35,7 @@ services:
         USER_ID: "${USER_ID}"
         GID: "${GID}"
     volumes:
-      - ./config:/app/config
+      - ./config:/app/app/config
       - ./logs:/app/logs
       - ./prometheus:/app/prometheus
     healthcheck:

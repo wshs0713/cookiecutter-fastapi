@@ -13,11 +13,13 @@ linter-pylint:
 docstyle:
 	pydocstyle ./app
 
-build:.
+build:
 	docker build -t {{cookiecutter.project_slug}}:$(VERSION) \
-		-t {{cookiecutter.project_slug}}:latest \
 		--build-arg USER_ID=$(USER_ID) \
 		--build-arg GID=$(GID) .
+
+push:
+	docker push {{cookiecutter.project_slug}}:$(VERSION)
 
 deploy:
 	USER_ID=$(USER_ID) GID=$(GID) VERSION=$(VERSION) docker-compose up --build -d {{cookiecutter.project_slug}}

@@ -3,6 +3,7 @@ FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-slim
 ARG USER_ID
 ARG GID
 ARG PROJECT_DIR=/app
+ARG APP_ROOT=/app/app
 
 # Set environment variable
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -39,4 +40,5 @@ RUN pip install pipenv && \
     chown -R $USER_ID:$GID $PROJECT_DIR
 
 # Use non-root user to start service
+WORKDIR ${APP_ROOT}
 USER docker
