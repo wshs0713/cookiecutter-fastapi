@@ -18,7 +18,9 @@ Environment variables description:
 
 - `ENV`: Environment (development, test, production)
 - `SECRET_KEY`: Secret key
+- `API_PREFIX`: API prefix.
 - `CORS_WHITELIST`: CORS whitelist, use `,` as separator.
+- `PROJECT_DIR`: Project directory.
 
 ## `gunicorn_config.py`
 
