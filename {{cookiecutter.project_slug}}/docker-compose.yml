@@ -11,9 +11,9 @@ services:
     environment:
       - ENV=production
       - API_VERSION=${VERSION}
-      - MODULE_NAME=asgi
+      - MODULE_NAME=app.main
       - VARIABLE_NAME=app
-      - APP_MODULE=asgi:app
+      - APP_MODULE=app.main:app
       - GUNICORN_CONF=/app/app/config/gunicorn_config.py
       - WORKERS_PER_CORE=0.5
       - MAX_WORKERS=4
@@ -35,7 +35,7 @@ services:
         USER_ID: "${USER_ID}"
         GID: "${GID}"
     volumes:
-      - ./config:/app/app/config
+      - ./app/config:/app/app/config
       - ./logs:/app/logs
       - ./prometheus:/app/prometheus
     healthcheck:
